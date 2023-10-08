@@ -13,57 +13,40 @@
 8. Display the employee table, salary_log table.
 
 ### Program:
-```
-Developed by:Kavinesh M
-Register no:212222230064
-```
-```
-CREATE TABLE employed(
-  empid NUMBER,
-  empname VARCHAR2(10),
-  dept VARCHAR2(10),
-  salary NUMBER
-);
 
-CREATE TABLE sal_log (
-  log_id NUMBER GENERATED ALWAYS AS IDENTITY,
-  empid NUMBER,
-  empname VARCHAR2(10),
-  old_salary NUMBER,
-  new_salary NUMBER,
-  update_date DATE
-);
-```
 ### Create employee table
-![image](https://github.com/BharathCSEIOT/Ex-No-5-Creating-Triggers-using-PL-SQL/assets/122793480/f3e744fb-7606-46cb-8a75-89f67070a0f1)
+```
+CREATE TABLE employee (empid NUMBER,empname VARCHAR2(10),dept VARCHAR2(10),salary NUMBER);
+```
+
 
 ### Create salary_log table
-![image](https://github.com/BharathCSEIOT/Ex-No-5-Creating-Triggers-using-PL-SQL/assets/122793480/e784d2f0-1b29-40c0-ac08-854fec0c3c3d)
+```
+CREATE TABLE salary_log (log_id NUMBER GENERATED ALWAYS AS IDENTITY,empid NUMBER,empname VARCHAR2(10),old_salary NUMBER,new_salary NUMBER,update_date DATE);
+```
 
 ### PLSQL Trigger code
 ```
-->Create the trigger
-Create the trigger
-CREATE OR REPLACE TRIGGER log_sal_update
-BEFORE UPDATE ON employed
+CREATE OR REPLACE TRIGGER log_update_salary
+BEFORE UPDATE ON employee2
 FOR EACH ROW
+DECLARE
+    v_old_salary NUMBER;
 BEGIN
-  IF :OLD.salary != :NEW.salary THEN
-    INSERT INTO sal_log (empid, empname, old_salary, new_salary, update_date)
-    VALUES (:OLD.empid, :OLD.empname, :OLD.salary, :NEW.salary, SYSDATE);
-  END IF;
+    IF :OLD.salary <> :NEW.salary THEN
+        v_old_salary := :OLD.salary;
+        INSERT INTO salary_log (empid, empname, old_salary, new_salary, update_date)
+        VALUES (:OLD.empid, :OLD.empname, v_old_salary, :NEW.salary, SYSDATE);
+    END IF;
 END;
 /
-->Update the salary of an employee
-UPDATE employed
-SET salary = 60000
+
+
+UPDATE employee2
+SET salary = 55000
 WHERE empid = 1;
-->Display the employee table
-SELECT * FROM employed;
-
-->Display the salary_log table
-SELECT * FROM sal_log;
-
 ```
 ### Output:
-![image](https://github.com/BharathCSEIOT/Ex-No-5-Creating-Triggers-using-PL-SQL/assets/122793480/51e5e56e-b792-4612-88e7-235dde93af95)
+![Screenshot 2023-10-08 150857](https://github.com/Melvin14112004/Ex-No-5-Creating-Triggers-using-PL-SQL/assets/129204995/7d951459-7284-4dc4-88e4-5ef95d9cb207)
+
+
