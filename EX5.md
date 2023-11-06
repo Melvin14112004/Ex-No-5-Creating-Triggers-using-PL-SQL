@@ -51,7 +51,7 @@ WHERE empid = 1;
 ### Output:
 ![Screenshot 2023-10-08 150857](https://github.com/Melvin14112004/Ex-No-5-Creating-Triggers-using-PL-SQL/assets/129204995/7d951459-7284-4dc4-88e4-5ef95d9cb207)
 
-## AIM:
+## RESULT:
 
 Therefore,Creating Triggers using PL/SQL Executed Successfully
 
